@@ -1,0 +1,6 @@
+{
+  "name": "Unique Commerce Centre",
+  "description": "Unique Commerce Centre offers academic programs, computer courses, AI training and English language courses in Karachi. Admissions open for 2026–2027.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

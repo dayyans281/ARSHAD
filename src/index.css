@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  h1, h2, h3, .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-crest {
+    font-family: 'Cinzel', serif;
+  }
+}
+
+/* Custom patterned backgrounds and glow accents */
+.bg-gold-radial {
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FDE047 0%, #D4AF37 50%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-gold-shimmer {
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.gold-glow {
+  box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.3);
+}
+
+/* Geometric Pakistani/Islamic corner filigree subtle background pattern */
+.bg-islamic-pattern {
+  background-color: #08162d;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.2) 0.65px, transparent 0.65px), radial-gradient(rgba(212, 175, 55, 0.15) 0.65px, #08162d 0.65px);
+  background-size: 26px 26px;
+  background-position: 0 0, 13px 13px;
+}
+
