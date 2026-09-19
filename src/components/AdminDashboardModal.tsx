@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, ShieldCheck, Users, BookOpen, GraduationCap, CheckCircle, Clock, Search, Filter, Trash2, Download, Plus, AlertCircle, ToggleLeft, ToggleRight, Phone, MessageSquare, Check, RefreshCw, Star, Newspaper } from 'lucide-react';
 import { Registration, Announcement, BlogComment } from '../types';
 import { INSTITUTE_INFO, PROGRAMS, COMPUTER_COURSES, ENGLISH_COURSES } from '../data/instituteData';
+import { UCCLogo } from './UCCLogo';
 
 interface AdminDashboardModalProps {
   isOpen: boolean;
@@ -104,9 +105,7 @@ export function AdminDashboardModal({
         {/* Header Bar */}
         <div className="bg-[#050D1A] p-4 sm:p-6 border-b border-amber-500/20 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
+            <UCCLogo size="sm" withRing={true} />
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-lg sm:text-xl font-black font-heading text-white">

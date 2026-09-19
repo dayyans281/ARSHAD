@@ -6,6 +6,7 @@ interface UCCLogoProps {
   withGlow?: boolean;
   withRing?: boolean;
   rounded?: string;
+  variant?: 'emblem' | 'full';
 }
 
 export function UCCLogo({
@@ -14,8 +15,18 @@ export function UCCLogo({
   withGlow = false,
   withRing = true,
   rounded = 'rounded-xl',
+  variant = 'emblem',
 }: UCCLogoProps) {
+  const [currentSrc, setCurrentSrc] = useState('/assets/ucc_logo.svg');
   const [imgError, setImgError] = useState(false);
+
+  const handleImageError = () => {
+    if (currentSrc === '/assets/ucc_logo.svg') {
+      setCurrentSrc('/assets/ucc_logo.jpg');
+    } else {
+      setImgError(true);
+    }
+  };
 
   // Size mappings
   const sizeClasses = {
@@ -24,15 +35,15 @@ export function UCCLogo({
     md: 'w-11 h-11 sm:w-12 sm:h-12',
     lg: 'w-16 h-16',
     xl: 'w-20 h-20 sm:w-24 sm:h-24',
-    '2xl': 'w-28 h-28 sm:w-32 sm:h-32',
+    '2xl': 'w-28 h-28 sm:w-36 sm:h-36',
   }[size];
 
   const ringClasses = withRing
-    ? 'p-0.5 bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-lg'
+    ? 'p-0.5 bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 shadow-md shadow-amber-500/20'
     : '';
 
   const glowClasses = withGlow
-    ? 'shadow-[0_0_20px_rgba(212,175,55,0.4)]'
+    ? 'shadow-[0_0_25px_rgba(227,34,25,0.4)]'
     : '';
 
   return (
@@ -40,63 +51,99 @@ export function UCCLogo({
       className={`relative inline-flex items-center justify-center shrink-0 overflow-hidden ${sizeClasses} ${rounded} ${ringClasses} ${glowClasses} ${className}`}
       id="ucc-official-logo"
     >
-      {!imgError ? (
-        <img
-          src="/assets/ucc_logo.jpg"
-          alt="Unique Commerce Centre Official Logo"
-          referrerPolicy="no-referrer"
-          onError={() => setImgError(true)}
-          className={`w-full h-full object-cover ${rounded}`}
-        />
-      ) : (
-        /* Vector SVG Fallback reproducing the exact emblem */
-        <svg
-          viewBox="0 0 120 120"
-          className={`w-full h-full ${rounded}`}
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Deep Navy Background Squircle */}
-          <rect width="120" height="120" rx="26" fill="#0A1835" />
-          
-          {/* Castle / Fortress Emblem in Center */}
-          <path
-            d="M44 56.5 L60 48.5 L76 56.5 V80 H44 V56.5 Z"
-            fill="#2563EB"
+      <div className={`w-full h-full bg-white flex items-center justify-center overflow-hidden ${rounded}`}>
+        {!imgError ? (
+          <img
+            src={currentSrc}
+            alt="Unique Commerce Centre Official Logo - Red Mortarboard & Book"
+            referrerPolicy="no-referrer"
+            onError={handleImageError}
+            className={`w-full h-full object-contain p-0.5 ${rounded}`}
           />
-          {/* Castle Battlements */}
-          <rect x="44" y="52" width="6" height="7" rx="1" fill="#2563EB" />
-          <rect x="57" y="50" width="6" height="7" rx="1" fill="#2563EB" />
-          <rect x="70" y="52" width="6" height="7" rx="1" fill="#2563EB" />
-          
-          {/* White Stylized C-Loop Monogram */}
-          <path
-            d="M 75 42
-               C 66 31, 40 32, 28 44
-               C 16 57, 16 77, 28 90
-               C 40 101, 65 101, 78 101
-               L 92 101
-               L 92 85
-               L 78 85
-               C 67 85, 48 85, 39 77
-               C 31 69, 31 57, 39 49
-               C 47 41, 65 41, 75 48
-               Z"
-            fill="#FFFFFF"
-          />
+        ) : (
+          /* High Precision Vector SVG of the Official Unique Commerce Centre Logo */
+          <svg
+            viewBox="0 0 120 120"
+            className={`w-full h-full p-1`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Cap Top Board */}
+            <rect x="34" y="1" width="52" height="4" rx="0.5" fill="#F38B1C" />
 
-          {/* Top Notch Circular Terminal */}
-          <circle cx="77" cy="42" r="7" fill="#FFFFFF" />
-          <circle cx="77" cy="42" r="3.5" fill="#0A1835" />
+            {/* Mortarboard Crown / Head */}
+            <path
+              d="M46 5 H74 V15 C74 24 68 31 60 31 C52 31 46 24 46 15 Z"
+              fill="#E32219"
+            />
+            {/* Cap Band Accent */}
+            <rect x="46" y="13" width="28" height="2.5" fill="#F38B1C" />
 
-          {/* Golden Forward/Upward Arrow */}
-          <path
-            d="M78 30 L99 23 L92 44 L87 37 L74 45 L71 39 L84 32 Z"
-            fill="#C99432"
-          />
-          <polygon points="99,23 78,31 88,38" fill="#D4AF37" />
-        </svg>
-      )}
+            {/* Hanging Tassel */}
+            <rect x="78" y="5" width="2.5" height="13" fill="#F38B1C" />
+            <rect x="77" y="18" width="4.5" height="6.5" rx="0.5" fill="#F38B1C" />
+
+            {/* Neck Pillar */}
+            <rect x="58" y="31" width="4" height="3" fill="#F38B1C" />
+
+            {/* Student Shoulders / Silhouette */}
+            <path
+              d="M60 34 C42 34 31 41 31 50 C31 55 40 62 60 70 C80 62 89 55 89 50 C89 41 78 34 60 34 Z"
+              fill="#E32219"
+            />
+
+            {/* Radiating Book Pages (Left side) */}
+            <line x1="60" y1="70" x2="14" y2="52" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="11" y2="57" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="8" y2="62" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="5" y2="67" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="3" y2="72" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="2" y2="76" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+
+            {/* Radiating Book Pages (Right side) */}
+            <line x1="60" y1="70" x2="106" y2="52" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="109" y2="57" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="112" y2="62" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="115" y2="67" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="117" y2="72" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+            <line x1="60" y1="70" x2="118" y2="76" stroke="#E32219" strokeWidth="1.8" strokeLinecap="round" />
+
+            {/* Solid Book Spine Base Bar with Central Notch */}
+            <path
+              d="M2 79 H118 V86 H64 C64 89 62.5 90 60 90 C57.5 90 56 89 56 86 H2 Z"
+              fill="#E32219"
+            />
+
+            {/* Text: UNIQUE */}
+            <text
+              x="60"
+              y="104"
+              textAnchor="middle"
+              fill="#E32219"
+              fontFamily="system-ui, -apple-system, sans-serif"
+              fontWeight="900"
+              fontSize="19"
+              letterSpacing="0.5"
+            >
+              UNIQUE
+            </text>
+
+            {/* Text: COMMERCE CENTRE */}
+            <text
+              x="60"
+              y="117"
+              textAnchor="middle"
+              fill="#E32219"
+              fontFamily="system-ui, -apple-system, sans-serif"
+              fontWeight="800"
+              fontSize="9"
+              letterSpacing="0.8"
+            >
+              COMMERCE CENTRE
+            </text>
+          </svg>
+        )}
+      </div>
     </div>
   );
 }
